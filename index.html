@@ -6,90 +6,21 @@
   <title>Thinking of ...</title>
   <base href="/vue-counter/">
   <link rel="icon" href="https://fav.farm/📟" />
+  <link rel="stylesheet" href="styles.css">
   <script src="https://unpkg.com/vue@3"></script>
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f0f0f0;
-    }
-    #app {
-      background: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    button {
-      padding: 0.5rem 1rem;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 0.5rem;
-      background-color: #42b983;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #fc0000;
-    }
-  </style>
+
 </head>
 <body>
-  <div id="app">
-    <h1>Counter: {{ count }}</h1>
-    <button @click="increment">+1</button>
+<div id="app">
+  <div class="counter" v-for="counter in counters" :key="counter.id">
+    <h2>{{ counter.label }} <br> {{ counter.count }}</h2>
+    <button @click="increment(counter.id)">+1</button>
   </div>
+</div>
 
-  <script type="module">
-
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyC3QqtqHjS8LNY72xhhZPIfYHNUtj3qUGI",
-    authDomain: "vuecounter-f4370.firebaseapp.com",
-    projectId: "vuecounter-f4370",
-    storageBucket: "vuecounter-f4370.firebasestorage.app",
-    messagingSenderId: "1038276076556",
-    appId: "1:1038276076556:web:8ea7cb4c4f7e8867097a29",
-    measurementId: "G-H12798N9GK"
-  };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    const docRef = db.collection("counters").doc("main");
-
-    const app = Vue.createApp({
-      data() {
-        return {
-          count: 0
-        };
-      },
-      methods: {
-        async increment() {
-          this.count++;
-          await docRef.set({ count: this.count });
-        }
-      },
-      mounted() {
-        docRef.onSnapshot(doc => {
-          if (doc.exists) {
-            this.count = doc.data().count;
-          } else {
-            docRef.set({ count: 0 });
-          }
-        });
-      }
-    });
-
-    app.mount('#app');
-  </script>
+<script type="module" src="app.js"></script>
 </body>
 </html>
