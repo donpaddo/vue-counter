@@ -25,24 +25,45 @@ const app = Vue.createApp({
         };
     },
     methods: {
+        triggerPulse(color) {
+            const appEl = document.getElementById('app');
+            const className = `pulse-${color}`;
+            appEl.classList.remove('pulse-red', 'pulse-blue');
+            void appEl.offsetWidth; // force reflow
+            appEl.classList.add(className);
+        },
+
         async increment(id) {
             const counter = this.counters.find(c => c.id === id);
             if (counter) {
-                // USE THE NEXT LINE FOR DEV
-                counter.count++;
-                // USE THE NEXT LINE FOR DEPLOY
-                // await setDoc(doc(db, "counters", id), { count: counter.count + 1 });
+                // counter.count++;
+
+                // Special effect for "mismatch"
+                if (id === "mismatch") {
+                    this.triggerPulse("blue");
+                } else {
+                    this.triggerPulse("red");
+                }
+
+                // Optional Firebase
+                await setDoc(doc(db, "counters", id), { count: counter.count + 1 });
             }
         },
+
         async decrement(id) {
             const counter = this.counters.find(c => c.id === id);
-            if (counter) {
-                // USE THE NEXT LINE FOR DEV
-                if(counter.count > 0) {
-                    counter.count--;
-                    // USE THE NEXT LINE FOR DEPLOY
-                    // await setDoc(doc(db, "counters", id), { count: counter.count - 1 });
+            if (counter && counter.count > 0) {
+                // counter.count--;
+
+                // Special effect for "match"
+                if (id === "match") {
+                    this.triggerPulse("blue");
+                } else {
+                    this.triggerPulse("red");
                 }
+
+                // Optional Firebase
+                await setDoc(doc(db, "counters", id), { count: counter.count - 1 });
             }
         },
         setupSnapshot(counter) {

@@ -14,7 +14,7 @@ body {
     background: white;
     padding: 2rem;
     border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.25);
 }
 
 .counter {
@@ -38,11 +38,31 @@ button {
 }
 
 button:hover {
-    background-color: #fc0000;
+    background-color: #2e855d;
 }
 
 .btn-box {
     display:  flex;
     gap: 1rem;
     justify-content:  center;
+}
+
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 16px 4px rgba(255, 0, 0, 0.5); }
+    50% { box-shadow: 0 0 24px 8px rgba(255, 0, 0, 0.75); }
+    100% { box-shadow: 0 0 16px 4px rgba(255, 0, 0, 0.5); }
+}
+
+@keyframes pulse-blue {
+    0% { box-shadow: 0 0 16px 4px rgba(0, 128, 255, 0.5); }
+    50% { box-shadow: 0 0 24px 8px rgba(0, 128, 255, 0.75); }
+    100% { box-shadow: 0 0 16px 4px rgba(0, 128, 255, 0.5); }
+}
+
+.pulse-red {
+    animation: pulse-red 0.4s ease;
+}
+
+.pulse-blue {
+    animation: pulse-blue 0.4s ease;
 }
