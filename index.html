@@ -17,7 +17,10 @@
 <div id="app">
   <div class="counter" v-for="counter in counters" :key="counter.id">
     <h2>{{ counter.label }} <br> {{ counter.count }}</h2>
-    <button @click="increment(counter.id)">+1</button>
+    <div class="btn-box">
+      <button @click="increment(counter.id)">+1</button>
+      <button v-if="counter.id!=='main'" @click="decrement(counter.id)">-1</button>
+    </div>
   </div>
 </div>
 

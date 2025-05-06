@@ -28,7 +28,21 @@ const app = Vue.createApp({
         async increment(id) {
             const counter = this.counters.find(c => c.id === id);
             if (counter) {
-                await setDoc(doc(db, "counters", id), { count: counter.count + 1 });
+                // USE THE NEXT LINE FOR DEV
+                counter.count++;
+                // USE THE NEXT LINE FOR DEPLOY
+                // await setDoc(doc(db, "counters", id), { count: counter.count + 1 });
+            }
+        },
+        async decrement(id) {
+            const counter = this.counters.find(c => c.id === id);
+            if (counter) {
+                // USE THE NEXT LINE FOR DEV
+                if(counter.count > 0) {
+                    counter.count--;
+                    // USE THE NEXT LINE FOR DEPLOY
+                    // await setDoc(doc(db, "counters", id), { count: counter.count - 1 });
+                }
             }
         },
         setupSnapshot(counter) {

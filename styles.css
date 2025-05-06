@@ -40,3 +40,9 @@ button {
 button:hover {
     background-color: #fc0000;
 }
+
+.btn-box {
+    display:  flex;
+    gap: 1rem;
+    justify-content:  center;
+}
